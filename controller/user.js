@@ -16,10 +16,13 @@ exports.register = async (req, res, next) =>{
     console.log('请求体', req.body);
     // 2.数据验证
     // 3.验证通过
-    const user = new User(req.body.user)
-
-    // 保持到数据库
+    let user = new User(req.body.user)
     await user.save()
+
+    // 返回不带密码
+    user = user.toJSON()
+    delete user.password
+    // 保持到数据库
     // 4.发送响应成功
     // res.send('register')
     console.log('user', user);
