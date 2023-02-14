@@ -1,3 +1,4 @@
+const { User } = require('../model')
 // 用户登录
 exports.login = async (req, res, next) => {
   try {
@@ -11,8 +12,20 @@ exports.login = async (req, res, next) => {
 // 用户注册
 exports.register = async (req, res, next) =>{
   try {
-    //
-    res.send('register')
+    // 1. 获取请求体数据
+    console.log('请求体', req.body);
+    // 2.数据验证
+    // 3.验证通过
+    const user = new User(req.body.user)
+
+    // 保持到数据库
+    await user.save()
+    // 4.发送响应成功
+    // res.send('register')
+    console.log('user', user);
+    res.status(201).json({
+      user
+    })
   } catch (error) {
     next(error)
   }
@@ -22,7 +35,7 @@ exports.register = async (req, res, next) =>{
 exports.getCurrentUser = async (req, res, next) =>{
   try {
     //
-    JSON.parse('aaa')
+    // JSON.parse('aaa')
 
     res.send('getCurrentUser')
   } catch (error) {

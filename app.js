@@ -3,6 +3,7 @@ const mogran = require('morgan')
 const cors = require('cors')
 const router = require('./router')
 const errorHandle = require('./middleware/error-handle')
+require('./model')
 
 const app = express()
 
