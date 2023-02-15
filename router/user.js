@@ -4,19 +4,20 @@ const router = express.Router()
 
 const userCtrl = require('../controller/user')
 const userValidator = require('../validator/user')
+const auth = require('../middleware/auth')
 
 // 用户登录
-router.post('/users/login', userCtrl.login)
+router.post('/users/login', userValidator.login, userCtrl.login)
 
 
 // 用户注册
 router.post('/users', userValidator.register, userCtrl.register)
 
 // 获取当前登录用户
-router.get('/user', userCtrl.getCurrentUser)
+router.get('/user', auth, userCtrl.getCurrentUser)
 
 // 更新当前登录用户
-router.put('/user', userCtrl.updateCurrentUser)
+router.put('/user', auth, userCtrl.updateCurrentUser)
 
 
 
