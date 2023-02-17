@@ -56,7 +56,7 @@ exports.getCurrentUser = async (req, res, next) =>{
     //
     // JSON.parse('aaa')
     console.log(req.headers);
-    res.status(299).json({
+    res.status(200).json({
       user: req.user
     })
     res.send('getCurrentUser')

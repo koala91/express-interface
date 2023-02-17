@@ -8,7 +8,9 @@ module.exports = async (req, res, next) => {
   token = token ? token.split('Bearer ')[1] : null
 
   if (!token) {
-    return res.status(401).end()
+    return res.status(401).json({
+      error: "没有权限"
+    })
   }
 
   try {
@@ -16,9 +18,10 @@ module.exports = async (req, res, next) => {
     req.user = await User.findById(decodeToken.userId)
     next()
     console.log('decodeToken', decodeToken);
-    next()
   } catch (error) {
-    return res.status(401).end()
+    return res.status(401).json({
+      error: "权限认证失败"
+    })
   }
   // 验证 token 是否有效
   // 无效 => 响应 401 状态码
