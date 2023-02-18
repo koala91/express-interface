@@ -18,3 +18,36 @@ exports.getArticle = validate([
     }
   })
 ])
+
+// 校验文章id是否是ObjectId
+// id是否存在
+// 校验文章作者是否是当前登录用户
+exports.updateArticle = [
+  validate([
+    validate.isValidObjectId(['params'], 'articleId')
+  ]),
+  async (req, res, next) => {
+    const articleId = req.params.articleId
+    console.log('articleId', articleId);
+    const article = await Article.findById(articleId)
+    req.article = article
+    console.log('article', article);
+    if (!article) {
+      return res.status(404).end()
+    }
+    next()
+  },
+  async (req, res, next) => {
+    console.log('req.user._id', req.user._id);
+    console.log('article.author', req.article.author);
+    if (String(req.user._id) !== String(req.article.author)) {
+      return res.status(403).end()
+    }
+    next()
+  }
+]
+
+
+exports.deleteArticle =exports.updateArticle
+
+

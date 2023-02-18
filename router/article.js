@@ -22,11 +22,11 @@ router.post('/', auth, articleValidator.createArticle, articleCtrl.createArticle
 
 
 // 更新文章
-router.put('/:sulg', articleCtrl.updateArticle)
+router.put('/:articleId', auth, articleValidator.updateArticle, articleCtrl.updateArticle)
 
 
 // 删除文章
-router.delete('/:sulg', articleCtrl.deleteArticle)
+router.delete('/:articleId', auth, articleValidator.deleteArticle, articleCtrl.deleteArticle)
 
 
 // 添加文章评论
