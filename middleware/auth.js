@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     const decodeToken = await verify(token, jwtSecret)
     req.user = await User.findById(decodeToken.userId)
     next()
-    console.log('decodeToken', decodeToken);
+    // console.log('decodeToken', decodeToken);
   } catch (error) {
     return res.status(401).json({
       error: "权限认证失败"

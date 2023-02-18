@@ -14,7 +14,7 @@ router.get('/feed', articleCtrl.getFeedArticles)
 
 
 // 获取文章
-router.get('/:sulg', articleCtrl.getArticle)
+router.get('/:articleId', articleValidator.getArticle ,articleCtrl.getArticle)
 
 
 // 创建文章
